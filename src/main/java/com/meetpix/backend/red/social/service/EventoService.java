@@ -2,6 +2,7 @@ package com.meetpix.backend.red.social.service;
 
 import java.util.Optional;
 
+import com.meetpix.backend.red.social.dto.EventosUsuariosDto;
 import com.meetpix.backend.red.social.entity.Evento;
 
 public interface EventoService {
@@ -13,4 +14,7 @@ public interface EventoService {
 	Evento saveEvento(Evento evento);
 
 	void deleteByIdEvento(Long id);
+
+	void asociarEventosUsusarios(EventosUsuariosDto eventoUserDto);
+
 }

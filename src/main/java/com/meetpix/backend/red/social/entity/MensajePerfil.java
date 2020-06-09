@@ -3,10 +3,8 @@ package com.meetpix.backend.red.social.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -24,8 +22,7 @@ public class MensajePerfil implements Serializable {
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")
 	private Long id;
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Usuario usuario;
+	private String nombre;
 	private String cuerpo;
 
 	public Long getId() {
@@ -36,12 +33,12 @@ public class MensajePerfil implements Serializable {
 		this.id = id;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getCuerpo() {

@@ -3,8 +3,8 @@ package com.meetpix.backend.red.social.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -31,8 +31,11 @@ public class Usuario implements Serializable {
 	private String descripcion;
 	private String trabajo;
 	private int edad;
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY)
 	private List<MensajePerfil> mensajes;
+
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<Evento> eventos;
 
 	public Long getId() {
 		return id;
@@ -96,6 +99,14 @@ public class Usuario implements Serializable {
 
 	public void setMensajes(List<MensajePerfil> mensajes) {
 		this.mensajes = mensajes;
+	}
+
+	public List<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
 	}
 
 }

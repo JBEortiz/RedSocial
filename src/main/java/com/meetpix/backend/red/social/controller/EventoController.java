@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.meetpix.backend.red.social.dto.EventoDto;
+import com.meetpix.backend.red.social.dto.EventosUsuariosDto;
 import com.meetpix.backend.red.social.entity.Evento;
 import com.meetpix.backend.red.social.service.EventoService;
 
@@ -53,14 +53,14 @@ public class EventoController {
 	 * @param idDto
 	 * @return
 	 */
-	@GetMapping("/{idDto}")
-	public ResponseEntity<EventoDto> findBancos(@PathVariable Long idDto) {
-		Optional<Evento> eventoId = eventoService.finByIdEvento(idDto);
-		EventoDto eventoDto = new EventoDto(eventoId.get());
-		if (eventoDto == null || idDto <= 0 || idDto == null) {
-			return new ResponseEntity<EventoDto>(HttpStatus.NO_CONTENT);
+	@PostMapping("/asistenEventos")
+	public ResponseEntity<EventosUsuariosDto> findBancos(@RequestBody EventosUsuariosDto eventoUsuarioDto) {
+		try {
+			eventoService.asociarEventosUsusarios(eventoUsuarioDto);
+			return new ResponseEntity<EventosUsuariosDto>(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<EventosUsuariosDto>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<EventoDto>(eventoDto, HttpStatus.OK);
 	}
 
 	/**
