@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.meetpix.backend.red.social.entity.Evento;
 import com.meetpix.backend.red.social.entity.MensajeEvento;
+import com.meetpix.backend.red.social.repository.EventoRepository;
 import com.meetpix.backend.red.social.repository.MensajeEventoReposirtory;
 import com.meetpix.backend.red.social.service.MensajeEventoService;
 
@@ -15,6 +17,8 @@ public class MensajeEventoServiceImpl implements MensajeEventoService {
 
 	@Autowired
 	private MensajeEventoReposirtory mensajeEventoReposirtory;
+	@Autowired
+	private EventoRepository eventoRepository;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -30,14 +34,35 @@ public class MensajeEventoServiceImpl implements MensajeEventoService {
 
 	@Override
 	@Transactional
+	public void deleteByIdMensajeEvento(Long id) {
+		mensajeEventoReposirtory.deleteById(id);
+	}
+
+	@Override
+	@Transactional
 	public MensajeEvento saveMensajeEvento(MensajeEvento mensajeEvento) {
 		return mensajeEventoReposirtory.save(mensajeEvento);
 	}
 
 	@Override
-	@Transactional
-	public void deleteByIdMensajeEvento(Long id) {
-		mensajeEventoReposirtory.deleteById(id);
+	public MensajeEvento asociarMensajeEvento(Long idEvento, Long idMensaje) {
+		Evento evento = eventoRepository.findById(idEvento).get();
+		MensajeEvento mensajeEvento = mensajeEventoReposirtory.findById(idMensaje).get();
+
+		evento.getMensajes().add(mensajeEvento);
+		eventoRepository.save(evento);
+
+		return mensajeEvento;
+	}
+
+	@Override
+	public MensajeEvento deleteMensajeEvento(Long idEvento, Long idMensaje) {
+		Evento evento = eventoRepository.findById(idEvento).get();
+		MensajeEvento mensajeEvento = mensajeEventoReposirtory.findById(idMensaje).get();
+
+		evento.getMensajes().remove(mensajeEvento);
+		eventoRepository.save(evento);
+		return mensajeEvento;
 	}
 
 }

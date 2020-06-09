@@ -10,7 +10,12 @@ public interface MensajeEventoService {
 
 	Optional<MensajeEvento> finByIdMensajeEvento(Long id);
 
+	void deleteByIdMensajeEvento(Long id);
+
 	MensajeEvento saveMensajeEvento(MensajeEvento mensajeEvento);
 
-	void deleteByIdMensajeEvento(Long id);
+	MensajeEvento asociarMensajeEvento(Long idEvento, Long idMensaje);
+
+	MensajeEvento deleteMensajeEvento(Long idEvento, Long idMensaje);
+
 }

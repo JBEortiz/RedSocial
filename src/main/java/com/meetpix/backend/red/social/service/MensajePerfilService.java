@@ -13,4 +13,9 @@ public interface MensajePerfilService {
 	MensajePerfil saveMensajePerfil(MensajePerfil mensajePerfil);
 
 	void deleteByIdMensajePerfil(Long id);
+
+	MensajePerfil asociarMensajePerfil(Long idUsuario, Long idMensaje);
+
+	MensajePerfil deleteMensajePerfil(Long idUsuario, Long idMensaje);
+
 }

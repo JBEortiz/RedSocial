@@ -21,7 +21,7 @@ public class OpinionController {
 	private OpinionService opinionService;
 
 	/**
-	 * @GetMapping Este metodo se encarga de motrar todas las opiniones de los
+	 * @GetMapping Este método se encarga de motrar todas las opiniones de los
 	 *             usuarios
 	 * @return
 	 */
@@ -31,19 +31,18 @@ public class OpinionController {
 	}
 
 	/**
-	 * @PostMapping Creamos el post de opinon que luego asociaremos a un usuario
-	 * 
+	 * @PostMapping crearemos un método de asociar una opinion a un usuario
 	 * @param opinion
 	 * @return
 	 */
 	@PostMapping
-	public ResponseEntity<Opinion> createMensajeOpinion(@RequestBody Opinion opinion) {
+	public ResponseEntity<?> createMensajeOpinion(@RequestBody Opinion opinion) {
 		Opinion opinionCreada = opinionService.saveOpinion(opinion);
 		return ResponseEntity.status(HttpStatus.CREATED).body(opinionCreada);
 	}
 
 	/**
-	 * @DeleteMapping("/{id}") en caso de querer borrar una opinion exacta
+	 * @DeleteMapping("/{id}") en caso de querer borrar una opinión exacta
 	 * borraremos por id
 	 * 
 	 * @param id

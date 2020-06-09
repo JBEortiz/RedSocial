@@ -5,6 +5,9 @@ import java.util.List;
 import com.meetpix.backend.red.social.entity.Evento;
 import com.meetpix.backend.red.social.entity.MensajeEvento;
 
+/*
+ * 
+ */
 public class EventoDto {
 
 	private String nombre;

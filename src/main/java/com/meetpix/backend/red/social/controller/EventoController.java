@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.meetpix.backend.red.social.dto.EventoDto;
 import com.meetpix.backend.red.social.entity.Evento;
 import com.meetpix.backend.red.social.service.EventoService;
 
@@ -29,23 +30,41 @@ public class EventoController {
 	}
 
 	/**
-	 * @GetMapping("/{id}") Este metodo solo lo utilizaremos para las pruebas
+	 * @GetMapping("/{id}") Este método sólo lo utilizaremos para las pruebas
 	 * 
 	 * @param id
 	 * @return
 	 */
-	@GetMapping("/{id}")
+
+	@GetMapping("/by/{id}")
 	public ResponseEntity<?> getByIdEvento(@PathVariable Long id) {
-		Optional<Evento> optional = eventoService.finByIdEvento(id);
-		if (optional.isPresent()) {
+		Optional<Evento> eventoId = eventoService.finByIdEvento(id);
+		if (eventoId == null) {
 			return ResponseEntity.notFound().build();
 		}
 
-		return ResponseEntity.ok(optional.get());
+		return ResponseEntity.ok(eventoId);
 	}
 
 	/**
-	 * @PostMapping dentro de la pagina evento tendremos un pequeño formulario para
+	 * @GetMapping("/{id}") Este metodo sólo lo utilizaremos para cuando clickemos
+	 * el evento no nos salga su id
+	 * 
+	 * @param idDto
+	 * @return
+	 */
+	@GetMapping("/{idDto}")
+	public ResponseEntity<EventoDto> findBancos(@PathVariable Long idDto) {
+		Optional<Evento> eventoId = eventoService.finByIdEvento(idDto);
+		EventoDto eventoDto = new EventoDto(eventoId.get());
+		if (eventoDto == null || idDto <= 0 || idDto == null) {
+			return new ResponseEntity<EventoDto>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<EventoDto>(eventoDto, HttpStatus.OK);
+	}
+
+	/**
+	 * @PostMapping dentro de la página evento tendremos un pequeño formulario para
 	 *              poder crear eventos
 	 * @param evento
 	 * @return
@@ -58,9 +77,9 @@ public class EventoController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateEvento(@RequestBody Evento evento, @PathVariable Long id) {
-		Optional<Evento> optional = eventoService.finByIdEvento(id);
+		Optional<Evento> eventoId = eventoService.finByIdEvento(id);
 
-		Evento eventoModificado = optional.get();
+		Evento eventoModificado = eventoId.get();
 		eventoModificado.setNombre(evento.getNombre());
 		eventoModificado.setDescripcion(evento.getDescripcion());
 		eventoModificado.setDireccion(evento.getDireccion());

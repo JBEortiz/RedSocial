@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "USUARIO")
@@ -22,8 +22,8 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_usuario")
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
 	private Long id;
 	private String nombre;
 	private String apellido;
@@ -31,10 +31,7 @@ public class Usuario implements Serializable {
 	private String descripcion;
 	private String trabajo;
 	private int edad;
-	/*
-	 * TODO Relacion 1-N con mensajes del perfil del usuario
-	 */
-	@OneToMany(mappedBy = "id_mensaje_perfil", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MensajePerfil> mensajes;
 
 	public Long getId() {

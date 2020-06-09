@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "EVENTO")
@@ -21,18 +21,16 @@ public class Evento implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_evento")
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
 	private Long id;
 	private String nombre;
 	private String descripcion;
 	private String direccion;
-	/*
-	 * TODO Relacion 1-n con mensajes
-	 */
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "id_evento")
+	@JoinColumn(name = "id")
 	private List<MensajeEvento> mensajes;
 
 	public Long getId() {

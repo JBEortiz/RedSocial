@@ -13,4 +13,8 @@ public interface OpinionService {
 	Opinion saveOpinion(Opinion opinion);
 
 	void deleteByIdOpinion(Long id);
+
+	Opinion asociarOpinionPerfil(Long idUsuario, Long idOpinion);
+
+	Opinion deleteOpinionPerfil(Long idUsuario, Long idOpinion);
 }

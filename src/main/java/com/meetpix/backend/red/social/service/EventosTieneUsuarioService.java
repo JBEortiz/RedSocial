@@ -10,7 +10,7 @@ public interface EventosTieneUsuarioService {
 
 	Optional<EventosTienenUsuario> finByIdEventosTieneUsuario(Long id);
 
-	EventosTienenUsuario saveEventosTieneUsuario(EventosTienenUsuario EventosTienenUsuario);
+	EventosTienenUsuario saveEventosTieneUsuario(EventosTienenUsuario eventosTienenUsuario);
 
 	void deleteByIdEventosTieneUsuario(Long id);
 }

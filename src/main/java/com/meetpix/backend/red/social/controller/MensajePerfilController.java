@@ -20,27 +20,22 @@ public class MensajePerfilController {
 	@Autowired
 	private MensajePerfilService mensajePerfilService;
 
-	/**
-	 * @GetMapping Este metodo se encarga de motrar todas las mensajes del perfil de
-	 *             los usuarios
-	 * @return
-	 */
 	@GetMapping
-	public ResponseEntity<?> getAllMensajePerfil() {
+	public ResponseEntity<?> getAllMensajeOpinion() {
 		return ResponseEntity.ok().body(mensajePerfilService.findAllMensajePerfil());
 	}
 
 	/**
-	 * @PostMapping Creamos el post de mensajes del perfil que luego asociaremos a
+	 * @PostMapping Creamos el post del mensaje del perfil que luego asociaremos a
 	 *              un usuario
 	 * 
 	 * @param MensajePerfil
 	 * @return
 	 */
 	@PostMapping
-	public ResponseEntity<MensajePerfil> createMensajePerfil(@RequestBody MensajePerfil mensajePerfil) {
-		MensajePerfil mensajePerfilCreado = mensajePerfilService.saveMensajePerfil(mensajePerfil);
-		return ResponseEntity.status(HttpStatus.CREATED).body(mensajePerfilCreado);
+	public ResponseEntity<?> createMensajeOpinion(@RequestBody MensajePerfil mensajePerfil) {
+		MensajePerfil mensajeCreado = mensajePerfilService.saveMensajePerfil(mensajePerfil);
+		return ResponseEntity.status(HttpStatus.CREATED).body(mensajeCreado);
 	}
 
 	/**
