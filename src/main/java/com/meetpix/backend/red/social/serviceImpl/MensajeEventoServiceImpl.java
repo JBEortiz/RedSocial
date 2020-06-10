@@ -45,6 +45,7 @@ public class MensajeEventoServiceImpl implements MensajeEventoService {
 	}
 
 	@Override
+	@Transactional
 	public MensajeEvento asociarMensajeEvento(Long idEvento, Long idMensaje) {
 		Evento evento = eventoRepository.findById(idEvento).get();
 		MensajeEvento mensajeEvento = mensajeEventoReposirtory.findById(idMensaje).get();
@@ -56,6 +57,7 @@ public class MensajeEventoServiceImpl implements MensajeEventoService {
 	}
 
 	@Override
+	@Transactional
 	public MensajeEvento deleteMensajeEvento(Long idEvento, Long idMensaje) {
 		Evento evento = eventoRepository.findById(idEvento).get();
 		MensajeEvento mensajeEvento = mensajeEventoReposirtory.findById(idMensaje).get();

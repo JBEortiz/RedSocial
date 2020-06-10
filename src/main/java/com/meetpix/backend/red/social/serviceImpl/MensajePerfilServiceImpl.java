@@ -46,6 +46,7 @@ public class MensajePerfilServiceImpl implements MensajePerfilService {
 	}
 
 	@Override
+	@Transactional
 	public MensajePerfil asociarMensajePerfil(Long idUsuario, Long idMensaje) {
 		Usuario usuario = usuarioRepository.findById(idUsuario).get();
 		MensajePerfil mensajePerfil = mensajePerfilRepository.findById(idMensaje).get();
@@ -56,6 +57,7 @@ public class MensajePerfilServiceImpl implements MensajePerfilService {
 	}
 
 	@Override
+	@Transactional
 	public MensajePerfil deleteMensajePerfil(Long idUsuario, Long idMensaje) {
 		Usuario usuario = usuarioRepository.findById(idUsuario).get();
 		MensajePerfil mensajePerfil = mensajePerfilRepository.findById(idMensaje).get();

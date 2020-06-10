@@ -3,7 +3,6 @@ package com.meetpix.backend.red.social.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,19 +43,6 @@ public class MensajeEventoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(mensajeEventoCreado);
 	}
 
-	/**
-	 * @DeleteMapping("/{id}") en caso de querer borrar un mensaje exacto borraremos
-	 * por id
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteEvento(@PathVariable Long id) {
-		mensajeEventoService.deleteByIdMensajeEvento(id);
-		return ResponseEntity.noContent().build();
-	}
-
 	@PutMapping("/asociarMensajeEvento/{idEvento}/{idMensaje}")
 	public ResponseEntity<MensajeEvento> addMensaje(@PathVariable Long idEvento, @PathVariable Long idMensaje) {
 		MensajeEvento mensajeEvento = mensajeEventoService.asociarMensajeEvento(idEvento, idMensaje);
@@ -65,6 +51,19 @@ public class MensajeEventoController {
 
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(mensajeEvento);
+
+	}
+
+	@PutMapping("/deleteMensajeEvento/{idEvento}/{idMensaje}")
+	public ResponseEntity<MensajeEvento> deleteMensaje(@PathVariable Long idEvento, @PathVariable Long idMensaje) {
+		MensajeEvento mensajeEventoDelete = mensajeEventoService.deleteMensajeEvento(idEvento, idMensaje);
+		mensajeEventoService.deleteByIdMensajeEvento(idMensaje);
+
+		if (idEvento <= 0 || idEvento == null || idMensaje <= 0 || idMensaje == null) {
+			return new ResponseEntity<MensajeEvento>(HttpStatus.NO_CONTENT);
+
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(mensajeEventoDelete);
 
 	}
 

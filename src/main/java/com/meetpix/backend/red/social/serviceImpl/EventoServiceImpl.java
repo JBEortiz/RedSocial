@@ -46,6 +46,7 @@ public class EventoServiceImpl implements EventoService {
 	}
 
 	@Override
+	@Transactional
 	public void asociarEventosUsusarios(EventosUsuariosDto eventoUserDto) {
 		Evento evento = eventoRepository.findEventoByIdentificador(eventoUserDto.getIdentificador());
 		Usuario usuario = usuarioRepository.findUser(eventoUserDto.getNombreUsuario(),
@@ -54,6 +55,5 @@ public class EventoServiceImpl implements EventoService {
 		usuario.getEventos().add(evento);
 		eventoRepository.save(evento);
 		usuarioRepository.save(usuario);
-
 	}
 }

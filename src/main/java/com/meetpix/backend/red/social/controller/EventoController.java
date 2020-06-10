@@ -1,7 +1,10 @@
 package com.meetpix.backend.red.social.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.meetpix.backend.red.social.dto.EventoDto;
 import com.meetpix.backend.red.social.dto.EventosUsuariosDto;
 import com.meetpix.backend.red.social.entity.Evento;
 import com.meetpix.backend.red.social.service.EventoService;
@@ -24,17 +28,31 @@ public class EventoController {
 	@Autowired
 	private EventoService eventoService;
 
+	/*
+	 * Este método sólo lo utilizaremos para las pruebas
+	 */
 	@GetMapping
 	public ResponseEntity<?> getAllEvento() {
 		return ResponseEntity.ok().body(eventoService.findAllEvento());
 	}
 
 	/**
-	 * @GetMapping("/{id}") Este método sólo lo utilizaremos para las pruebas
+	 * @GetMapping("/eventos") Este método sólo lo para el findAllEventos
 	 * 
 	 * @param id
 	 * @return
 	 */
+
+	@GetMapping("/eventos")
+	public ResponseEntity<?> findAllEventos() {
+		ModelMapper modelMapper = new ModelMapper();
+		List<Evento> eventosAll = (List<Evento>) eventoService.findAllEvento();
+		List<EventoDto> eventoDto = new ArrayList<EventoDto>();
+		for (Evento evento : eventosAll) {
+			eventoDto.add(modelMapper.map(evento, EventoDto.class));
+		}
+		return new ResponseEntity<>(eventoDto, HttpStatus.OK);
+	}
 
 	@GetMapping("/by/{id}")
 	public ResponseEntity<?> getByIdEvento(@PathVariable Long id) {
@@ -54,7 +72,7 @@ public class EventoController {
 	 * @return
 	 */
 	@PostMapping("/asistenEventos")
-	public ResponseEntity<EventosUsuariosDto> findBancos(@RequestBody EventosUsuariosDto eventoUsuarioDto) {
+	public ResponseEntity<EventosUsuariosDto> assitenEventos(@RequestBody EventosUsuariosDto eventoUsuarioDto) {
 		try {
 			eventoService.asociarEventosUsusarios(eventoUsuarioDto);
 			return new ResponseEntity<EventosUsuariosDto>(HttpStatus.OK);

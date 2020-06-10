@@ -10,8 +10,8 @@ public interface UsuarioService {
 
 	Optional<Usuario> finByIdUsuario(Long id);
 
-	Usuario saveUsuario(Usuario usuario);
-
 	void deleteByIdUsuario(Long id);
+
+	Usuario saveUsuario(Usuario usuario);
 
 }

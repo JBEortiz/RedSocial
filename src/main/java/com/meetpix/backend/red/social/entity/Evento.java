@@ -8,14 +8,19 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "EVENTO")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Evento implements Serializable {
 	/**
 	 * 
@@ -33,7 +38,7 @@ public class Evento implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<MensajeEvento> mensajes;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "eventos")
 	private List<Usuario> usuarios;
 
 	public Long getId() {

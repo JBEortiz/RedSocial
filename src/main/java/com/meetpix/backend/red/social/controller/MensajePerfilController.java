@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,6 +50,27 @@ public class MensajePerfilController {
 	public ResponseEntity<?> deleteMensajePerfil(@PathVariable Long id) {
 		mensajePerfilService.deleteByIdMensajePerfil(id);
 		return ResponseEntity.noContent().build();
+	}
+
+	@PutMapping("/asociarMensajePerfil/{idUsuario}/{idMensaje}")
+	public ResponseEntity<MensajePerfil> addMensaje(@PathVariable Long idUsuario, @PathVariable Long idMensaje) {
+		MensajePerfil mensajePerfil = mensajePerfilService.asociarMensajePerfil(idUsuario, idMensaje);
+		if (idUsuario <= 0 || idUsuario == null || idMensaje <= 0 || idMensaje == null) {
+			return new ResponseEntity<MensajePerfil>(HttpStatus.NO_CONTENT);
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(mensajePerfil);
+
+	}
+
+	@PutMapping("/deleteMensajePerfil/{idUsuario}/{idMensaje}")
+	public ResponseEntity<MensajePerfil> deleteMensaje(@PathVariable Long idUsuario, @PathVariable Long idMensaje) {
+		MensajePerfil mensajePerfilDelete = mensajePerfilService.deleteMensajePerfil(idUsuario, idMensaje);
+		mensajePerfilService.deleteByIdMensajePerfil(idMensaje);
+		if (idUsuario <= 0 || idUsuario == null || idMensaje <= 0 || idMensaje == null) {
+			return new ResponseEntity<MensajePerfil>(HttpStatus.NO_CONTENT);
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(mensajePerfilDelete);
+
 	}
 
 }
