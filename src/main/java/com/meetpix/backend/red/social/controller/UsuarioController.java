@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,16 +22,18 @@ import com.meetpix.backend.red.social.dto.UsuarioDto;
 import com.meetpix.backend.red.social.entity.Usuario;
 import com.meetpix.backend.red.social.service.UsuarioService;
 
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/meeypix")
 public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
-
-//	@GetMapping
-//	public ResponseEntity<?> getAllUsuario() {
-//		return ResponseEntity.ok().body(usuarioService.findAllUsuario());
-//	}
+	/*
+	 * //Método solo para pruebas
+	 * 
+	 * @GetMapping public ResponseEntity<?> getAllUsuario() { return
+	 * ResponseEntity.ok().body(usuarioService.findAllUsuario()); }
+	 */
 
 	@GetMapping("/miperfil/by/{id}")
 	public ResponseEntity<?> getByIdUsuario(@PathVariable Long id) {
@@ -42,8 +45,8 @@ public class UsuarioController {
 	}
 
 	/**
-	 * @GetMapping("/{id}") Este método sólo lo utilizaremos para cuando clickemos
-	 * el evento no nos salga su id
+	 * @GetMapping("/redcontactos") Este método sustituye al getAll convencional que
+	 * solo utilizaremos para pruebas
 	 * 
 	 * @param idDto
 	 * @return

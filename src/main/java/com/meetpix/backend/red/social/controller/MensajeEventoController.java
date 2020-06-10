@@ -3,6 +3,7 @@ package com.meetpix.backend.red.social.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.meetpix.backend.red.social.entity.MensajeEvento;
 import com.meetpix.backend.red.social.service.MensajeEventoService;
 
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/mensajevento")
 public class MensajeEventoController {
@@ -51,7 +53,6 @@ public class MensajeEventoController {
 
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(mensajeEvento);
-
 	}
 
 	@PutMapping("/deleteMensajeEvento/{idEvento}/{idMensaje}")
@@ -64,7 +65,6 @@ public class MensajeEventoController {
 
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(mensajeEventoDelete);
-
 	}
 
 }
