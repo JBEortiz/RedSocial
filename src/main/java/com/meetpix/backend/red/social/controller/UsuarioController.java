@@ -28,12 +28,13 @@ import com.meetpix.backend.red.social.service.UsuarioService;
 public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
-	/*
-	 * //Método solo para pruebas
-	 * 
-	 * @GetMapping public ResponseEntity<?> getAllUsuario() { return
-	 * ResponseEntity.ok().body(usuarioService.findAllUsuario()); }
-	 */
+
+	// Método solo para pruebas
+
+	@GetMapping
+	public ResponseEntity<?> getAllUsuario() {
+		return ResponseEntity.ok().body(usuarioService.findAllUsuario());
+	}
 
 	@GetMapping("/miperfil/by/{id}")
 	public ResponseEntity<?> getByIdUsuario(@PathVariable Long id) {
@@ -81,6 +82,7 @@ public class UsuarioController {
 			return ResponseEntity.notFound().build();
 		}
 		Usuario userModificado = usuarioId.get();
+		userModificado.setAvatar(usuario.getAvatar());
 		userModificado.setCiudad(usuario.getCiudad());
 		userModificado.setDescripcion(usuario.getDescripcion());
 		userModificado.setTrabajo(usuario.getTrabajo());

@@ -49,10 +49,12 @@ public class MensajeEventoServiceImpl implements MensajeEventoService {
 	public MensajeEvento asociarMensajeEvento(Long idEvento, Long idMensaje) {
 		Evento evento = eventoRepository.findById(idEvento).get();
 		MensajeEvento mensajeEvento = mensajeEventoReposirtory.findById(idMensaje).get();
-
-		evento.getMensajes().add(mensajeEvento);
-		eventoRepository.save(evento);
-
+		if (evento.getMensajes().contains(mensajeEvento)) {
+			eventoRepository.save(evento);
+		} else {
+			evento.getMensajes().add(mensajeEvento);
+			eventoRepository.save(evento);
+		}
 		return mensajeEvento;
 	}
 
@@ -61,9 +63,12 @@ public class MensajeEventoServiceImpl implements MensajeEventoService {
 	public MensajeEvento deleteMensajeEvento(Long idEvento, Long idMensaje) {
 		Evento evento = eventoRepository.findById(idEvento).get();
 		MensajeEvento mensajeEvento = mensajeEventoReposirtory.findById(idMensaje).get();
-
-		evento.getMensajes().remove(mensajeEvento);
-		eventoRepository.save(evento);
+		if (evento.getMensajes().contains(mensajeEvento)) {
+			eventoRepository.save(evento);
+		} else {
+			evento.getMensajes().remove(mensajeEvento);
+			eventoRepository.save(evento);
+		}
 		return mensajeEvento;
 	}
 

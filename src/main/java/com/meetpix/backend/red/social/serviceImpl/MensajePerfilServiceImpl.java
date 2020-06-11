@@ -50,9 +50,12 @@ public class MensajePerfilServiceImpl implements MensajePerfilService {
 	public MensajePerfil asociarMensajePerfil(Long idUsuario, Long idMensaje) {
 		Usuario usuario = usuarioRepository.findById(idUsuario).get();
 		MensajePerfil mensajePerfil = mensajePerfilRepository.findById(idMensaje).get();
-
-		usuario.getMensajes().add(mensajePerfil);
-		usuarioRepository.save(usuario);
+		if (usuario.getMensajes().contains(mensajePerfil)) {
+			usuarioRepository.save(usuario);
+		} else {
+			usuario.getMensajes().add(mensajePerfil);
+			usuarioRepository.save(usuario);
+		}
 		return mensajePerfil;
 	}
 
@@ -61,9 +64,12 @@ public class MensajePerfilServiceImpl implements MensajePerfilService {
 	public MensajePerfil deleteMensajePerfil(Long idUsuario, Long idMensaje) {
 		Usuario usuario = usuarioRepository.findById(idUsuario).get();
 		MensajePerfil mensajePerfil = mensajePerfilRepository.findById(idMensaje).get();
-
-		usuario.getMensajes().remove(mensajePerfil);
-		usuarioRepository.save(usuario);
+		if (usuario.getMensajes().contains(mensajePerfil)) {
+			usuarioRepository.save(usuario);
+		} else {
+			usuario.getMensajes().remove(mensajePerfil);
+			usuarioRepository.save(usuario);
+		}
 		return mensajePerfil;
 	}
 
