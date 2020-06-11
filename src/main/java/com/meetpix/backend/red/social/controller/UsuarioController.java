@@ -24,7 +24,7 @@ import com.meetpix.backend.red.social.service.UsuarioService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/meeypix")
+@RequestMapping("/api/miperfil")
 public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
@@ -36,7 +36,7 @@ public class UsuarioController {
 		return ResponseEntity.ok().body(usuarioService.findAllUsuario());
 	}
 
-	@GetMapping("/miperfil/by/{id}")
+	@GetMapping("/miperfil/{id}")
 	public ResponseEntity<?> getByIdUsuario(@PathVariable Long id) {
 		Optional<Usuario> usuarioId = usuarioService.finByIdUsuario(id);
 		if (usuarioId == null) {
@@ -75,14 +75,13 @@ public class UsuarioController {
 	/*
 	 * @PutMapping donde podemos cambiar los datos en nuestro perfil
 	 */
-	@PutMapping("/miperfil/by/{id}")
+	@PutMapping("/miperfil/{id}")
 	public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario usuario, @PathVariable Long id) {
 		Optional<Usuario> usuarioId = usuarioService.finByIdUsuario(id);
 		if (usuarioId == null) {
 			return ResponseEntity.notFound().build();
 		}
 		Usuario userModificado = usuarioId.get();
-		userModificado.setAvatar(usuario.getAvatar());
 		userModificado.setCiudad(usuario.getCiudad());
 		userModificado.setDescripcion(usuario.getDescripcion());
 		userModificado.setTrabajo(usuario.getTrabajo());
@@ -92,7 +91,7 @@ public class UsuarioController {
 	/*
 	 * @DeleteMapping Este método no le daremos mucho uso y no lo dejaremos visible
 	 */
-	@DeleteMapping("/miperfil/by/{id}")
+	@DeleteMapping("/miperfil/{id}")
 	public ResponseEntity<?> deleteUsuario(@PathVariable Long id) {
 		usuarioService.deleteByIdUsuario(id);
 		return ResponseEntity.noContent().build();

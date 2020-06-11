@@ -17,7 +17,7 @@ import com.meetpix.backend.red.social.service.MensajeEventoService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/mensajevento")
+@RequestMapping("/api/evento")
 public class MensajeEventoController {
 	@Autowired
 	private MensajeEventoService mensajeEventoService;
@@ -27,7 +27,7 @@ public class MensajeEventoController {
 	 *             usuarios
 	 * @return
 	 */
-	@GetMapping
+	@GetMapping("/mensajeEvent")
 	public ResponseEntity<?> getAllMensajeEvento() {
 		return ResponseEntity.ok().body(mensajeEventoService.findAllMensajeEvento());
 	}
@@ -39,7 +39,7 @@ public class MensajeEventoController {
 	 * @return
 	 */
 //	
-	@PostMapping
+	@PostMapping("/mensajeEvent")
 	public ResponseEntity<?> createMensajeEvento(@RequestBody MensajeEvento mensajeEvento) {
 		MensajeEvento mensajeEventoCreado = mensajeEventoService.saveMensajeEvento(mensajeEvento);
 		return ResponseEntity.status(HttpStatus.CREATED).body(mensajeEventoCreado);

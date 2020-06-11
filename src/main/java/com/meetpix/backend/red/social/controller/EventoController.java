@@ -25,7 +25,7 @@ import com.meetpix.backend.red.social.service.EventoService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/evento")
+@RequestMapping("/api/eventos")
 public class EventoController {
 	@Autowired
 	private EventoService eventoService;
@@ -56,7 +56,7 @@ public class EventoController {
 		return new ResponseEntity<>(eventoDto, HttpStatus.OK);
 	}
 
-	@GetMapping("/by/{id}")
+	@GetMapping("/eventos/{id}")
 	public ResponseEntity<?> getByIdEvento(@PathVariable Long id) {
 		Optional<Evento> eventoId = eventoService.finByIdEvento(id);
 		if (eventoId == null) {
@@ -88,7 +88,7 @@ public class EventoController {
 	 * @param evento
 	 * @return
 	 */
-	@PostMapping
+	@PostMapping("/eventos/create")
 	public ResponseEntity<?> createEvento(@RequestBody Evento evento) {
 		Evento eventoCreado = eventoService.saveEvento(evento);
 		return ResponseEntity.status(HttpStatus.CREATED).body(eventoCreado);
@@ -97,7 +97,7 @@ public class EventoController {
 	/*
 	 * @PutMapping("/{id}") método para modifciar evento por id
 	 */
-	@PutMapping("/{id}")
+	@PutMapping("/eventos/{id}")
 	public ResponseEntity<?> updateEvento(@RequestBody Evento evento, @PathVariable Long id) {
 		Optional<Evento> eventoId = eventoService.finByIdEvento(id);
 
@@ -113,7 +113,7 @@ public class EventoController {
 	 * @DeleteMapping("/{id}") borrar por id podemos hacer este metodo para borrar
 	 * en la vista getAll o dentro del evento con getById
 	 */
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/eventos/{id}")
 	public ResponseEntity<?> deleteCategoria(@PathVariable Long id) {
 		eventoService.deleteByIdEvento(id);
 		return ResponseEntity.noContent().build();

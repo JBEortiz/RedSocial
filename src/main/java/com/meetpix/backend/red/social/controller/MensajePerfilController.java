@@ -18,12 +18,12 @@ import com.meetpix.backend.red.social.service.MensajePerfilService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/mensajeperfil")
+@RequestMapping("/api/miperfil/")
 public class MensajePerfilController {
 	@Autowired
 	private MensajePerfilService mensajePerfilService;
 
-	@GetMapping
+	@GetMapping("/mensaje")
 	public ResponseEntity<?> getAllMensajeOpinion() {
 		return ResponseEntity.ok().body(mensajePerfilService.findAllMensajePerfil());
 	}
@@ -35,7 +35,7 @@ public class MensajePerfilController {
 	 * @param MensajePerfil
 	 * @return
 	 */
-	@PostMapping
+	@PostMapping("/mensaje")
 	public ResponseEntity<?> createMensajeOpinion(@RequestBody MensajePerfil mensajePerfil) {
 		MensajePerfil mensajeCreado = mensajePerfilService.saveMensajePerfil(mensajePerfil);
 		return ResponseEntity.status(HttpStatus.CREATED).body(mensajeCreado);
@@ -54,7 +54,7 @@ public class MensajePerfilController {
 		return ResponseEntity.noContent().build();
 	}
 
-	@PutMapping("/asociarMensajePerfil/{idUsuario}/{idMensaje}")
+	@PutMapping("/mensajeCreate/{idUsuario}/{idMensaje}")
 	public ResponseEntity<MensajePerfil> addMensaje(@PathVariable Long idUsuario, @PathVariable Long idMensaje) {
 		MensajePerfil mensajePerfil = mensajePerfilService.asociarMensajePerfil(idUsuario, idMensaje);
 		if (idUsuario <= 0 || idUsuario == null || idMensaje <= 0 || idMensaje == null) {
@@ -64,7 +64,7 @@ public class MensajePerfilController {
 
 	}
 
-	@PutMapping("/deleteMensajePerfil/{idUsuario}/{idMensaje}")
+	@PutMapping("/mensajeDelete/{idUsuario}/{idMensaje}")
 	public ResponseEntity<MensajePerfil> deleteMensaje(@PathVariable Long idUsuario, @PathVariable Long idMensaje) {
 		MensajePerfil mensajePerfilDelete = mensajePerfilService.deleteMensajePerfil(idUsuario, idMensaje);
 		mensajePerfilService.deleteByIdMensajePerfil(idMensaje);
