@@ -1,5 +1,6 @@
 package com.meetpix.backend.red.social.serviceImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,24 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Transactional
 	public void deleteByIdUsuario(Long id) {
 		usuarioRepository.deleteById(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Usuario> findAllOrderByNombre() {
+		return usuarioRepository.findAllOrderByNombre();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Usuario> findAllOrderByEdad() {
+		return usuarioRepository.findAllOrderByEdad();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Usuario findUserNombre(String nombre) {
+		return usuarioRepository.findUserNombre(nombre);
 	}
 
 }

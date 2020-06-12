@@ -36,6 +36,16 @@ public class UsuarioController {
 		return ResponseEntity.ok().body(usuarioService.findAllUsuario());
 	}
 
+	@GetMapping("/miperfil/ordernombre")
+	public ResponseEntity<?> getAllUsuarioEdad() {
+		return ResponseEntity.ok().body(usuarioService.findAllOrderByNombre());
+	}
+
+	@GetMapping("/miperfil/orderedad")
+	public ResponseEntity<?> getAllUsuarioNombre() {
+		return ResponseEntity.ok().body(usuarioService.findAllOrderByEdad());
+	}
+
 	@GetMapping("/miperfil/{id}")
 	public ResponseEntity<?> getByIdUsuario(@PathVariable Long id) {
 		Optional<Usuario> usuarioId = usuarioService.finByIdUsuario(id);
@@ -43,6 +53,16 @@ public class UsuarioController {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(usuarioId);
+	}
+
+	@GetMapping("/miperfil/n/{nombre}")
+	public ResponseEntity<?> getByNombreUsuario(@PathVariable String nombre) {
+		ModelMapper modelMapper = new ModelMapper();
+		Usuario usuario = usuarioService.findUserNombre(nombre);
+		UsuarioDto usuarioDto = new UsuarioDto();
+		usuarioDto = modelMapper.map(usuario, UsuarioDto.class);
+
+		return new ResponseEntity<>(usuarioDto, HttpStatus.OK);
 	}
 
 	/**
