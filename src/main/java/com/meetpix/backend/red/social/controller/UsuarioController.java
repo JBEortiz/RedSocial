@@ -82,6 +82,7 @@ public class UsuarioController {
 			return ResponseEntity.notFound().build();
 		}
 		Usuario userModificado = usuarioId.get();
+
 		userModificado.setCiudad(usuario.getCiudad());
 		userModificado.setDescripcion(usuario.getDescripcion());
 		userModificado.setTrabajo(usuario.getTrabajo());

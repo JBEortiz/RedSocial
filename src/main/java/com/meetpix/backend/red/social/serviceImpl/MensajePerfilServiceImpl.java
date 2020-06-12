@@ -64,12 +64,10 @@ public class MensajePerfilServiceImpl implements MensajePerfilService {
 	public MensajePerfil deleteMensajePerfil(Long idUsuario, Long idMensaje) {
 		Usuario usuario = usuarioRepository.findById(idUsuario).get();
 		MensajePerfil mensajePerfil = mensajePerfilRepository.findById(idMensaje).get();
-		if (usuario.getMensajes().contains(mensajePerfil)) {
-			usuarioRepository.save(usuario);
-		} else {
-			usuario.getMensajes().remove(mensajePerfil);
-			usuarioRepository.save(usuario);
-		}
+
+		usuario.getMensajes().remove(mensajePerfil);
+		usuarioRepository.save(usuario);
+
 		return mensajePerfil;
 	}
 
