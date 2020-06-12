@@ -38,7 +38,13 @@ public class UsuarioController {
 
 	@GetMapping("/miperfil/ordernombre")
 	public ResponseEntity<?> getAllUsuarioEdad() {
-		return ResponseEntity.ok().body(usuarioService.findAllOrderByNombre());
+		ModelMapper modelMapper = new ModelMapper();
+		List<Usuario> usuarioNombre = usuarioService.findAllOrderByNombre();
+		List<UsuarioDto> usuarioDto = new ArrayList<UsuarioDto>();
+		for (Usuario usuario : usuarioNombre) {
+			usuarioDto.add(modelMapper.map(usuario, UsuarioDto.class));
+		}
+		return new ResponseEntity<>(usuarioDto, HttpStatus.OK);
 	}
 
 	@GetMapping("/miperfil/orderedad")
