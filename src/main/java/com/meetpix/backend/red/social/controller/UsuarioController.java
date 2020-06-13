@@ -37,7 +37,7 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/miperfil/ordernombre")
-	public ResponseEntity<?> getAllUsuarioEdad() {
+	public ResponseEntity<?> getAllUsuarioNombre() {
 		ModelMapper modelMapper = new ModelMapper();
 		List<Usuario> usuarioNombre = usuarioService.findAllOrderByNombre();
 		List<UsuarioDto> usuarioDto = new ArrayList<UsuarioDto>();
@@ -48,7 +48,7 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/miperfil/orderedad")
-	public ResponseEntity<?> getAllUsuarioNombre() {
+	public ResponseEntity<?> getAllUsuarioEdad() {
 		return ResponseEntity.ok().body(usuarioService.findAllOrderByEdad());
 	}
 

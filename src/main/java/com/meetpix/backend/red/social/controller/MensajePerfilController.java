@@ -18,12 +18,12 @@ import com.meetpix.backend.red.social.service.MensajePerfilService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/api/miperfil/")
+@RequestMapping("/api/miperfil")
 public class MensajePerfilController {
 	@Autowired
 	private MensajePerfilService mensajePerfilService;
 
-	@GetMapping("/mensaje")
+	@GetMapping("/mensajes")
 	public ResponseEntity<?> getAllMensajeOpinion() {
 		return ResponseEntity.ok().body(mensajePerfilService.findAllMensajePerfil());
 	}
