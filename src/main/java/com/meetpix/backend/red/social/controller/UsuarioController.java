@@ -52,7 +52,7 @@ public class UsuarioController {
 		return ResponseEntity.ok().body(usuarioService.findAllOrderByEdad());
 	}
 
-	@GetMapping("/miperfil/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<?> getByIdUsuario(@PathVariable Long id) {
 		Optional<Usuario> usuarioId = usuarioService.finByIdUsuario(id);
 		if (usuarioId == null) {
